@@ -28,7 +28,7 @@ const getPassingGrades = grades => {
         const filteredGrades = grades.filter(grade => {
             return grade >= 3;
         });
-        return (filteredGrades.length !== 0) ? filteredGrades : "No Passing grades";
+        return (filteredGrades.length !== 0) ? filteredGrades.join(", ") : "No Passing grades";
     }
     return 'No grades';
 }
@@ -38,7 +38,7 @@ const getFailingGrades = grades => {
         const filteredGrades = grades.filter(grade => {
             return grade < 3;
         });
-        return (filteredGrades.length !== 0) ? filteredGrades : "No failing grades";
+        return (filteredGrades.length !== 0) ? filteredGrades.join(", ")  : "No failing grades";
     }
     return 'No grades';
 }

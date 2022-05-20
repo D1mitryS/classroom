@@ -206,9 +206,9 @@ const render3TableContent = (grades, lowLimit) => {
     const tbody = document.querySelector('#third-table tbody');
     tbody.innerHTML =
         `<tr>
-        <td>${getPassingGradesTotal(grades, lowLimit)}</td>
-        <td>${getFailingGradesTotal(grades, lowLimit)}</td>
-    </tr>`;
+            <td>${getPassingGradesTotal(grades, lowLimit)}</td>
+            <td>${getFailingGradesTotal(grades, lowLimit)}</td>
+        </tr>`;
 }
 
 render4TableContent = grades => {
@@ -231,6 +231,10 @@ render(grades, lowLimit);
 
 form.addEventListener('submit', (evt) => {
     evt.preventDefault();
+
+    tooltip.style.display = 'none';
+    tooltipText.textContent = "";
+
     const highLimit = Number.parseInt(highLimitInput.value, 10);
     lowLimit = Number.parseInt(lowLimitInput.value, 10);
 

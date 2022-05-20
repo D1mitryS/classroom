@@ -24,7 +24,6 @@ body {
     padding: 30px;
 }
 
-
 main > .container {
     padding: 20px;
     background-color: #f2ecee;
@@ -54,7 +53,6 @@ main > .container {
     width: 60px;
     font-size: .8em;
 }
-
 
 .input-block {
     margin-top: 10px;
@@ -101,8 +99,12 @@ main > .container {
     font-size: .5em;
 }
 
+.answer-tables {
+    width: 75%;
+}
+
 .answer-tables table {
-    width: 70%;
+    width: 100%;
 }
 
 .answer-tables table:not(:last-of-type) {

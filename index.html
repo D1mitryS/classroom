@@ -38,6 +38,10 @@
                             <button type="submit" id="submit" name="classroom">Add</button>
                             <button type="button" id="reset" name="classroom">Reset</button>
                         </div>
+                        <div hidden id="tooltip" class="tooltip">
+                            <p id="tooltip-text" class="tooltip-text">(tooltip-text here)</p>
+                            <button type="button" id="tooltip-close">X</button>
+                        </div>
                     </div>
                 </form>
             </section>
@@ -49,7 +53,7 @@
                             <tr>
                                 <th>Grades total</th>
                                 <th>Sum of grades</th>
-                                <th>Average grade</th>
+                                <th>Average grade (round)</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -59,7 +63,6 @@
                             <tr>
                                 <th>Passing grades</th>
                                 <th>Failing grades</th>
-                                <th>Transcripted</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -69,6 +72,14 @@
                             <tr>
                                 <th>Passing grades total</th>
                                 <th>Failing grades total</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <table id="fourth-table">
+                        <thead>
+                            <tr>
+                                <th>Transcripted</th>
                             </tr>
                         </thead>
                         <tbody></tbody>

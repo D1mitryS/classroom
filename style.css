@@ -1,4 +1,6 @@
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     font-weight: normal;
 }
 
@@ -32,6 +34,28 @@ main > .container {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
+    width: 40%;
+}
+
+.limits {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.limits label {
+    display: flex;
+    justify-content: space-between;
+}
+
+.limits input {
+    padding: 2.5px;
+    width: 60px;
+    font-size: .8em;
+}
+
+.limits label {
+    padding: 5px 0;
 }
 
 .input-block {
@@ -41,18 +65,27 @@ main > .container {
 
 .input-block input[type="number"] {
     padding: 5px;
-    width: 20%;
-    font-size: .9em;
-    margin-right: 10px;
+    width: 50%;
+    font-size: .8em;
 }
 
 .input-block button {
     padding: 5px;
-    background-color: #970e3d;
     color: #fff;
-    width: 10%;
+    width: 20%;
     border-radius: 5px;
     font-size: .9em;
+}
+
+
+.input-block button[type="submit"] {
+    background-color: #970e3d;
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.input-block button[type="button"] {
+    background-color: gray;
 }
 
 .answer-tables table {

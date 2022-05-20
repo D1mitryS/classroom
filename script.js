@@ -1,5 +1,6 @@
 const form = document.querySelector('#form');
 const gradeInput = document.querySelector('#input');
+const resetBtn = document.querySelector('#reset')
 const grades = [];
 
 
@@ -22,7 +23,6 @@ const getAverageGrade = grades => {
     return (grades.length !== 0) ? getSumOfGrades(grades) / getGradesTotal(grades) : 'No grades';
 }
 
-
 const getPassingGrades = grades => {
     if (grades.length !== 0) {
         const filteredGrades = grades.filter(grade => {
@@ -38,7 +38,7 @@ const getFailingGrades = grades => {
         const filteredGrades = grades.filter(grade => {
             return grade < 3;
         });
-        return (filteredGrades.length !== 0) ? filteredGrades.join(", ")  : "No failing grades";
+        return (filteredGrades.length !== 0) ? filteredGrades.join(", ") : "No failing grades";
     }
     return 'No grades';
 }
@@ -68,7 +68,7 @@ const getPassingGradesTotal = grades => {
         const passingGrades = grades.filter(grade => {
             return grade >= 3;
         });
-        return passingGrades.length;
+        return getGradesTotal(passingGrades);
     }
     return "No grades";
 }
@@ -78,7 +78,7 @@ const getFailingGradesTotal = grades => {
         const failingGrades = grades.filter(grade => {
             return grade < 3;
         })
-        return failingGrades.length;
+        return getGradesTotal(failingGrades);
     }
     return "No grades";
 }
@@ -109,20 +109,19 @@ const render2TableContent = grades => {
 const render3TableContent = grades => {
     const tbody = document.querySelector('#third-table tbody');
     tbody.innerHTML =
-    `<tr>
+        `<tr>
         <td>${getPassingGradesTotal(grades)}</td>
         <td>${getFailingGradesTotal(grades)}</td>
     </tr>`
 }
 
-renderTableRows = grades => {
+render = grades => {
     render1TableContent(grades);
     render2TableContent(grades);
     render3TableContent(grades);
 }
 
-renderTableRows(grades);
-
+render(grades);
 
 
 form.addEventListener('submit', (evt) => {
@@ -131,5 +130,33 @@ form.addEventListener('submit', (evt) => {
     grades.push(newGrade);
     gradeInput.value = "";
 
-    renderTableRows(grades);
+    render(grades);
+})
+
+resetBtn.addEventListener('click', () => {
+    grades.length = 0;
+
+    render(grades);
+})
+
+
+const highLimitNum = document.querySelector('#high-num');
+const highLimitRange = document.querySelector('#high-range');
+const lowLimitNum = document.querySelector('#low-num');
+const lowLimitRange = document.querySelector('#low-range');
+
+highLimitNum.addEventListener('keyup', () => {
+    highLimitRange.value = highLimitNum.value;
+})
+
+highLimitRange.addEventListener('input', () => {
+    highLimitNum.value = highLimitRange.value;
+})
+
+lowLimitNum.addEventListener('keyup', () => {
+    lowLimitRange.value = lowLimitNum.value;
+})
+
+lowLimitRange.addEventListener('input', () => {
+    lowLimitNum.value = lowLimitRange.value;
 })

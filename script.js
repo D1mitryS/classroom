@@ -1,16 +1,3 @@
-const form = document.querySelector('#form');
-const highLimitInput = document.querySelector('#high-num');
-const lowLimitInput = document.querySelector('#low-num');
-const gradeInput = document.querySelector('#input');
-const resetBtn = document.querySelector('#reset');
-const tooltip = document.querySelector('#tooltip');
-const tooltipText = document.querySelector('#tooltip-text');
-const tooltipClose = document.querySelector('#tooltip-close')
-const grades = [];
-let lowLimit = 0;
-let highLimitNotification = false;
-
-
 const getGradesTotal = grades => {
     return grades.length || 'No grades';
 }
@@ -27,7 +14,11 @@ const getSumOfGrades = grades => {
 }
 
 const getAverageGrade = grades => {
-    return (grades.length) ? Math.round(getSumOfGrades(grades) / getGradesTotal(grades)) : 'No grades';
+    if (grades.length) {
+        const averageGrade = getSumOfGrades(grades) / getGradesTotal(grades);
+        return (averageGrade % 1 === 0) ? averageGrade : averageGrade.toFixed(2);
+    }
+    return 'No grades';
 }
 
 const getPassingGrades = (grades, lowLimit) => {
@@ -35,7 +26,7 @@ const getPassingGrades = (grades, lowLimit) => {
         const filteredGrades = grades.filter(grade => {
             return grade >= lowLimit;
         });
-        return (filteredGrades.length) ? filteredGrades.join(", ") : 'No Passing grades';
+        return (filteredGrades.length) ? filteredGrades.join(', ') : 'No Passing grades';
     }
     return 'No grades';
 }
@@ -45,25 +36,50 @@ const getFailingGrades = (grades, lowLimit) => {
         const filteredGrades = grades.filter(grade => {
             return grade < lowLimit;
         });
-        return (filteredGrades.length) ? filteredGrades.join(", ") : 'No failing grades';
+        return (filteredGrades.length) ? filteredGrades.join(', ') : 'No failing grades';
     }
     return 'No grades';
 }
+
+const getPassingGradesTotal = (grades, lowLimit) => {
+    if (grades.length) {
+        const passingGrades = grades.filter(grade => {
+            return grade >= lowLimit;
+        });
+        return (passingGrades.length) ? getGradesTotal(passingGrades) : 'No passing grades';
+    }
+    return 'No grades';
+}
+
+const getFailingGradesTotal = (grades, lowLimit) => {
+    if (grades.length !== 0) {
+        const failingGrades = grades.filter(grade => {
+            return grade < lowLimit;
+        })
+        return (failingGrades.length) ? getGradesTotal(failingGrades) : 'No failing grades';
+    }
+    return 'No grades';
+}
+
 
 const getTranscriptedGrades = grades => {
     const transcriptedGrades = grades.map(grade => {
         if (grade <= 19) {
             return getTranscriptedBelowTwenty(grade);
-        } else if (grade > 19 && grade <= 99) {
+        } 
+        else if (grade > 19 && grade <= 99) {
             const gradeToStr = String(grade);
             const firstDigit = Number(gradeToStr[0]);
             const secondDigit = Number(gradeToStr[1]);
-            if (grade % 10 === 0) {
-                return getTranscriptedAboveTwenty(firstDigit);
+
+            switch (grade % 10 === 0) {
+                case true:
+                    return getTranscriptedAboveTwenty(firstDigit);
+                default:
+                    return `${getTranscriptedAboveTwenty(firstDigit)}-${getTranscriptedBelowTwenty(secondDigit).toLowerCase()}`;
             }
-            return `${getTranscriptedAboveTwenty(firstDigit)}-${getTranscriptedBelowTwenty(secondDigit).toLowerCase()}`;
-   
-        } else if (grade === 100) {
+        }
+        else if (grade === 100) {
             return 'Hundred';
         }
     })
@@ -137,27 +153,6 @@ const getTranscriptedAboveTwenty = grade => {
 }
 
 
-const getPassingGradesTotal = (grades, lowLimit) => {
-    if (grades.length) {
-        const passingGrades = grades.filter(grade => {
-            return grade >= lowLimit;
-        });
-        return getGradesTotal(passingGrades);
-    }
-    return 'No grades';
-}
-
-const getFailingGradesTotal = (grades, lowLimit) => {
-    if (grades.length !== 0) {
-        const failingGrades = grades.filter(grade => {
-            return grade < lowLimit;
-        })
-        return getGradesTotal(failingGrades);
-    }
-    return 'No grades';
-}
-
-
 const render1TableContent = grades => {
     const tbody = (document.querySelector('#first-table tbody'));
 
@@ -203,27 +198,40 @@ render = (grades, lowLimit) => {
     render4TableContent(grades);
 }
 
+
+const grades = [];
+let lowLimit = 0;
 render(grades, lowLimit);
+
+
+const form = document.querySelector('#form');
+const highLimitInput = document.querySelector('#high-num');
+const lowLimitInput = document.querySelector('#low-num');
+const gradeInput = document.querySelector('#input');
+const tooltip = document.querySelector('#tooltip');
+const tooltipText = document.querySelector('#tooltip-text');
+const tooltipClose = document.querySelector('#tooltip-close');
+let highLimitNotification = false;
 
 
 form.addEventListener('submit', (evt) => {
     evt.preventDefault();
-
     tooltip.style.display = 'none';
     tooltipText.textContent = "";
-
     const highLimit = Number(highLimitInput.value);
     lowLimit = Number(lowLimitInput.value);
 
     if (highLimit > lowLimit) {
         const newGrade = Number(gradeInput.value);
 
-        if (newGrade <= highLimit) {
-            grades.push(newGrade);
-            gradeInput.value = "";
-            render(grades, lowLimit);
-            highLimitNotification = true;
-        } else {
+        switch (newGrade <= highLimit) {
+            case true:
+                grades.push(newGrade);
+                render(grades, lowLimit);
+                highLimitNotification = true;
+                gradeInput.value = "";
+                break;
+            default:
             tooltip.style.display = 'flex';
             tooltipText.innerHTML = 'New grade <b>can\'t exceed</b> highest passing grade';
             gradeInput.value = "";
@@ -238,10 +246,19 @@ form.addEventListener('submit', (evt) => {
 })
 
 
+tooltipClose.addEventListener('click', () => {
+    tooltip.style.display = 'none';
+    tooltipText.textContent = "";
+})
+
+
 const reset = () => {
     grades.length = 0;
     render(grades);
 }
+
+
+const resetBtn = document.querySelector('#reset');
 
 resetBtn.addEventListener('click', () => {
     reset();
@@ -250,14 +267,10 @@ resetBtn.addEventListener('click', () => {
 
 highLimitInput.addEventListener('change', () => {
     if (highLimitNotification) {
-        tooltip.style.display = 'flex';
-        tooltipText.innerHTML = 'Changing highest passing grade <b>resets all</b> grades';
-        reset();
+            tooltip.style.display = 'flex';
+            tooltipText.innerHTML = 'Changing highest passing grade <b>resets all</b> grades';
+            reset();
     }
 })
 
 
-tooltipClose.addEventListener('click', () => {
-    tooltip.style.display = 'none';
-    tooltipText.textContent = "";
-})

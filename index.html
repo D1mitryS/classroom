@@ -22,11 +22,11 @@
                         <div class="limits">
                             <label>
                                 <span class="description">Highest passing grade -</span>
-                                <input type="number" id="high-num" min="0" max="100" value="10">
+                                <input type="number" id="high-num" min="0" max="100" value="10" required>
                             </label>
                             <label>
                                 <span class="description">Lowest passing grade -</span>
-                                <input type="number" id="low-num" min="0" max="100" value="3">
+                                <input type="number" id="low-num" min="0" max="100" value="3" required>
                             </label>
                         </div>
                         <label for="input">
@@ -38,7 +38,7 @@
                             <button type="submit" id="submit" name="classroom">Add</button>
                             <button type="button" id="reset" name="classroom">Reset</button>
                         </div>
-                        <div hidden id="tooltip" class="tooltip">
+                        <div id="tooltip" class="tooltip">
                             <p id="tooltip-text" class="tooltip-text">(tooltip-text here)</p>
                             <button type="button" id="tooltip-close">X</button>
                         </div>

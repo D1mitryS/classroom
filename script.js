@@ -272,5 +272,3 @@ highLimitInput.addEventListener('change', () => {
             reset();
     }
 })
-
-

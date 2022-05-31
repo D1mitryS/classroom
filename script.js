@@ -61,16 +61,16 @@ const getFailingGradesTotal = (grades, lowLimit) => {
     return 'No grades';
 }
 
-
+/* Turns every number from grades array into word string e.g. 0 to 'Zero'  */
 const getTranscriptedGrades = grades => {
     const transcriptedGrades = grades.map(grade => {
         if (grade <= 19) {
             return getTranscriptedBelowTwenty(grade);
         } 
         else if (grade > 19 && grade <= 99) {
-            const gradeToStr = String(grade);
-            const firstDigit = Number(gradeToStr[0]);
-            const secondDigit = Number(gradeToStr[1]);
+            const gradeToStr = String(grade); /////////////
+            const firstDigit = Number.parseInt(gradeToStr[0], 10);
+            const secondDigit = Number.parseInt(gradeToStr[1], 10);
 
             switch (grade % 10 === 0) {
                 case true:
@@ -152,7 +152,7 @@ const getTranscriptedAboveTwenty = grade => {
     }
 }
 
-
+/* Renders table row with new grades array value for every call */
 const render1TableContent = grades => {
     const tbody = (document.querySelector('#first-table tbody'));
 
@@ -191,6 +191,7 @@ render4TableContent = grades => {
     </tr>`;
 }
 
+/* Call on functions to render table rows with new arguments */
 render = (grades, lowLimit) => {
     render1TableContent(grades);
     render2TableContent(grades, lowLimit);
@@ -199,36 +200,57 @@ render = (grades, lowLimit) => {
 }
 
 
+/* Global bc of call on render function on page load */
 const grades = [];
 let lowLimit = 0;
+
+/* On page load calls function to render table rows */
 render(grades, lowLimit);
 
 
-const form = document.querySelector('#form');
+
+/* Sets highes avaliable grade */
 const highLimitInput = document.querySelector('#high-num');
+
+/* Sets lowest avaliable grade */
 const lowLimitInput = document.querySelector('#low-num');
+
+const form = document.querySelector('#form');
 const gradeInput = document.querySelector('#input');
 const tooltip = document.querySelector('#tooltip');
 const tooltipText = document.querySelector('#tooltip-text');
 const tooltipClose = document.querySelector('#tooltip-close');
+
+/* Doesn't show reset notification if high limit changed before first push  */
 let highLimitNotification = false;
 
-
+/* Pushes new grade into grades array based on conditions, also shows tooltip */
 form.addEventListener('submit', (evt) => {
     evt.preventDefault();
+
     tooltip.style.display = 'none';
     tooltipText.textContent = "";
-    const highLimit = Number(highLimitInput.value);
-    lowLimit = Number(lowLimitInput.value);
 
+    const highLimit = Number.parseInt(highLimitInput.value, 10);
+
+    /* Passed to render function as second argument, filter callbacks depends on it */
+    lowLimit = Number.parseInt(lowLimitInput.value, 10);
+
+    /* Creates new const with grade value if true or shows tooltip warning if false */
     if (highLimit > lowLimit) {
-        const newGrade = Number(gradeInput.value);
+        const newGrade = Number.parseInt(gradeInput.value, 10);
 
-        switch (newGrade <= highLimit) {
+        /* Pushes new grade into grades if true or shows warning if false */
+        const isValidGrade = (newGrade <= highLimit) ? true : false
+
+        switch (isValidGrade) {
             case true:
                 grades.push(newGrade);
                 render(grades, lowLimit);
+
+                /* Show reset notification if high limit changed after first push  */
                 highLimitNotification = true;
+
                 gradeInput.value = "";
                 break;
             default:
@@ -245,26 +267,26 @@ form.addEventListener('submit', (evt) => {
     }
 })
 
-
+/* Closes tooltip */
 tooltipClose.addEventListener('click', () => {
     tooltip.style.display = 'none';
     tooltipText.textContent = "";
 })
 
-
+/* Resets array, also renders table with new array value */
 const reset = () => {
     grades.length = 0;
     render(grades);
 }
 
-
+/* Reset button */
 const resetBtn = document.querySelector('#reset');
 
 resetBtn.addEventListener('click', () => {
     reset();
 })
 
-
+/* Resets grades array if new high limit is chosen */
 highLimitInput.addEventListener('change', () => {
     if (highLimitNotification) {
             tooltip.style.display = 'flex';

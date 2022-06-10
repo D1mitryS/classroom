@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="reset.css">
+    <title>Classroom</title>
+</head>
+
+<body>
+    <header class="page-header">
+        <div class="container">
+            <h1>Classroom</h1>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <section class="instruments">
+                <h2 class="visually-hidden">Input for grades</h2>
+                <form id="form" name="classroom">
+                    <div class="container">
+                        <label for="input">
+                            <span class="description">Enter grade</span>
+                        </label>
+                        <div class="input-block">
+                            <input type="number" id="input" name="classroom" min="0" max="10" placeholder="Grade (0 to 10)" required>
+                            <button type="submit" id="submit" name="classroom">Add</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <section class="answer-tables">
+                <h2 class="visually-hidden">Answers table</h2>
+                <div class="container">
+                    <table id="first-table">
+                        <thead>
+                            <tr>
+                                <th>Grades total</th>
+                                <th>Sum of grades</th>
+                                <th>Average grade</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <table id="second-table">
+                        <thead>
+                            <tr>
+                                <th>Passing grades</th>
+                                <th>Failing grades</th>
+                                <th>Transcripted</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <table id="third-table">
+                        <thead>
+                            <tr>
+                                <th>Passing grades total</th>
+                                <th>Failing grades total</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>

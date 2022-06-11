@@ -45,7 +45,7 @@ const getFailingGrades = (grades, lowLimit) => {
         const filteredGrades = grades.filter(grade => {
             return grade < lowLimit;
         });
-        return (filteredGrades.length !== 0) ? filteredGrades : "No failing grades";
+        return (filteredGrades.length !== 0) ? filteredGrades.join(", ") : "No failing grades";
     }
     return 'No grades';
 }

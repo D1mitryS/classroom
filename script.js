@@ -241,8 +241,9 @@ form.addEventListener('submit', (evt) => {
         const newGrade = Number(gradeInput.value);
 
         /* Pushes new grade into grades if true or shows warning if false */
+        const isValidGrade = (newGrade <= highLimit) ? true : false
 
-        switch (newGrade <= highLimit) {
+        switch (isValidGrade) {
             case true:
                 grades.push(newGrade);
                 render(grades, lowLimit);

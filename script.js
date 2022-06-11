@@ -68,9 +68,9 @@ const getTranscriptedGrades = grades => {
             return getTranscriptedBelowTwenty(grade);
         } 
         else if (grade > 19 && grade <= 99) {
-            const gradeToStr = String(grade);
-            const firstDigit = Number(gradeToStr[0]);
-            const secondDigit = Number(gradeToStr[1]);
+            const gradeToStr = String(grade); 
+            const firstDigit = Number.parseInt(gradeToStr[0], 10);
+            const secondDigit = Number.parseInt(gradeToStr[1], 10);
 
             switch (grade % 10 === 0) {
                 case true:
@@ -238,7 +238,7 @@ form.addEventListener('submit', (evt) => {
 
     /* Creates new const with grade value if true or shows tooltip warning if false */
     if (highLimit > lowLimit) {
-        const newGrade = Number(gradeInput.value);
+        const newGrade = Number.parseInt(gradeInput.value, 10);
 
         /* Pushes new grade into grades if true or shows warning if false */
         const isValidGrade = (newGrade <= highLimit) ? true : false

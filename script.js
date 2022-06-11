@@ -208,13 +208,14 @@ let lowLimit = 0;
 render(grades, lowLimit);
 
 
-const form = document.querySelector('#form');
 
 /* Sets highes avaliable grade */
 const highLimitInput = document.querySelector('#high-num');
 
 /* Sets lowest avaliable grade */
 const lowLimitInput = document.querySelector('#low-num');
+
+const form = document.querySelector('#form');
 const gradeInput = document.querySelector('#input');
 const tooltip = document.querySelector('#tooltip');
 const tooltipText = document.querySelector('#tooltip-text');
@@ -229,11 +230,11 @@ form.addEventListener('submit', (evt) => {
 
     tooltip.style.display = 'none';
     tooltipText.textContent = "";
-    const highLimit = Number(highLimitInput.value);
-    lowLimit = Number(lowLimitInput.value);
 
+    const highLimit = Number.parseInt(highLimitInput.value, 10);
 
     /* Passed to render function as second argument, filter callbacks depends on it */
+    lowLimit = Number.parseInt(lowLimitInput.value, 10);
 
     /* Creates new const with grade value if true or shows tooltip warning if false */
     if (highLimit > lowLimit) {

@@ -33,7 +33,7 @@ main > .container {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
-    width: 40%;
+    max-width: 480px;
 }
 
 .limits {
@@ -100,7 +100,7 @@ main > .container {
 }
 
 .answer-tables {
-    width: 75%;
+    max-width: 900px;
 }
 
 .answer-tables table {

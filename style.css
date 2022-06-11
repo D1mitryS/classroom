@@ -1,4 +1,6 @@
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     font-weight: normal;
 }
 
@@ -21,7 +23,6 @@ body {
 .page-header .container {
     padding: 30px;
 }
-
 
 main > .container {
     padding: 20px;

@@ -70,6 +70,16 @@ main > .container {
     font-size: .9em;
 }
 
+.input-block button[type="submit"] {
+    background-color: #970e3d;
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.input-block button[type="button"] {
+    background-color: gray;
+}
+
 .answer-tables table {
     width: 100%;
 }

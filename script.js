@@ -1,22 +1,9 @@
-const form = document.querySelector('#form');
-const highLimitInput = document.querySelector('#high-num');
-const lowLimitInput = document.querySelector('#low-num');
-const gradeInput = document.querySelector('#input');
-const resetBtn = document.querySelector('#reset');
-const tooltip = document.querySelector('#tooltip');
-const tooltipText = document.querySelector('#tooltip-text');
-const tooltipClose = document.querySelector('#tooltip-close')
-const grades = [];
-let lowLimit = 0;
-let highLimitNotification = false;
-
-
 const getGradesTotal = grades => {
-    return (grades.length !== 0) ? grades.length : 'No grades';
+    return grades.length || 'No grades';
 }
 
 const getSumOfGrades = grades => {
-    if (grades.length !== 0) {
+    if (grades.length) {
         let sum = 0;
         grades.forEach(grade => {
             sum += grade;
@@ -31,21 +18,21 @@ const getAverageGrade = grades => {
 }
 
 const getPassingGrades = (grades, lowLimit) => {
-    if (grades.length !== 0) {
+    if (grades.length) {
         const filteredGrades = grades.filter(grade => {
             return grade >= lowLimit;
         });
-        return (filteredGrades.length !== 0) ? filteredGrades.join(", ") : "No Passing grades";
+        return (filteredGrades.length) ? filteredGrades.join(', ') : 'No Passing grades';
     }
     return 'No grades';
 }
 
 const getFailingGrades = (grades, lowLimit) => {
-    if (grades.length !== 0) {
+    if (grades.length) {
         const filteredGrades = grades.filter(grade => {
             return grade < lowLimit;
         });
-        return (filteredGrades.length !== 0) ? filteredGrades.join(", ") : "No failing grades";
+        return (filteredGrades.length) ? filteredGrades.join(', ') : 'No failing grades';
     }
     return 'No grades';
 }
@@ -189,8 +176,8 @@ const render3TableContent = (grades, lowLimit) => {
 
 render4TableContent = grades => {
     const tbody = document.querySelector('#fourth-table tbody');
-    tbody.innerHTML = 
-    `<tr>
+    tbody.innerHTML =
+        `<tr>
         <td>${getTranscriptedGrades(grades)}</td>
     </tr>`;
 }
@@ -202,17 +189,28 @@ render = (grades, lowLimit) => {
     render4TableContent(grades);
 }
 
+
+const grades = [];
+let lowLimit = 0;
 render(grades, lowLimit);
+
+
+const form = document.querySelector('#form');
+const highLimitInput = document.querySelector('#high-num');
+const lowLimitInput = document.querySelector('#low-num');
+const gradeInput = document.querySelector('#input');
+const tooltip = document.querySelector('#tooltip');
+const tooltipText = document.querySelector('#tooltip-text');
+const tooltipClose = document.querySelector('#tooltip-close');
+let highLimitNotification = false;
 
 
 form.addEventListener('submit', (evt) => {
     evt.preventDefault();
-
     tooltip.style.display = 'none';
     tooltipText.textContent = "";
-
-    const highLimit = Number.parseInt(highLimitInput.value, 10);
-    lowLimit = Number.parseInt(lowLimitInput.value, 10);
+    const highLimit = Number(highLimitInput.value);
+    lowLimit = Number(lowLimitInput.value);
 
     if (highLimit > lowLimit) {
         const newGrade = Number.parseInt(gradeInput.value, 10);
@@ -237,10 +235,19 @@ form.addEventListener('submit', (evt) => {
 })
 
 
+tooltipClose.addEventListener('click', () => {
+    tooltip.style.display = 'none';
+    tooltipText.textContent = "";
+})
+
+
 const reset = () => {
     grades.length = 0;
     render(grades);
 }
+
+
+const resetBtn = document.querySelector('#reset');
 
 resetBtn.addEventListener('click', () => {
     reset();
@@ -256,7 +263,3 @@ highLimitInput.addEventListener('change', () => {
 })
 
 
-tooltipClose.addEventListener('click', () => {
-    tooltip.style.display = 'none';
-    tooltipText.textContent = "";
-})

@@ -82,6 +82,26 @@ main > .container {
     background-color: gray;
 }
 
+.tooltip {
+    display: flex;
+    padding: 5px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    margin-top: 15px;
+    background-color: #fff;
+    display: none;
+}
+
+.tooltip button {
+    margin-left: auto;
+    align-self: flex-start;
+    font-size: .5em;
+}
+
+.answer-tables {
+    width: 75%;
+}
+
 .answer-tables table {
     width: 100%;
 }

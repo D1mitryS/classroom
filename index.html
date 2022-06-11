@@ -19,6 +19,16 @@
                 <h2 class="visually-hidden">Input for grades</h2>
                 <form id="form" name="classroom">
                     <div class="container">
+                        <div class="limits">
+                            <label>
+                                <span class="description">Highest passing grade -</span>
+                                <input type="number" id="high-num" min="0" max="100" value="10">
+                            </label>
+                            <label>
+                                <span class="description">Lowest passing grade -</span>
+                                <input type="number" id="low-num" min="0" max="100" value="3">
+                            </label>
+                        </div>
                         <label for="input">
                             <span class="description">Enter grade</span>
                         </label>

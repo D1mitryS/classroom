@@ -14,7 +14,11 @@ const getSumOfGrades = grades => {
 }
 
 const getAverageGrade = grades => {
-    return (grades.length !== 0) ? Math.round(getSumOfGrades(grades) / getGradesTotal(grades)) : 'No grades';
+    if (grades.length) {
+        const averageGrade = getSumOfGrades(grades) / getGradesTotal(grades);
+        return (averageGrade % 1 === 0) ? averageGrade : averageGrade.toFixed(2);
+    }
+    return 'No grades';
 }
 
 const getPassingGrades = (grades, lowLimit) => {
@@ -38,13 +42,13 @@ const getFailingGrades = (grades, lowLimit) => {
 }
 
 const getPassingGradesTotal = (grades, lowLimit) => {
-    if (grades.length !== 0) {
+    if (grades.length) {
         const passingGrades = grades.filter(grade => {
             return grade >= lowLimit;
         });
-        return getGradesTotal(passingGrades);
+        return (passingGrades.length) ? getGradesTotal(passingGrades) : 'No passing grades';
     }
-    return "No grades";
+    return 'No grades';
 }
 
 const getFailingGradesTotal = (grades, lowLimit) => {
@@ -52,7 +56,12 @@ const getFailingGradesTotal = (grades, lowLimit) => {
         const failingGrades = grades.filter(grade => {
             return grade < lowLimit;
         })
-        return getGradesTotal(failingGrades);
+        return (failingGrades.length) ? getGradesTotal(failingGrades) : 'No failing grades';
+    }
+    return 'No grades';
+}
+
+
 const getTranscriptedGrades = grades => {
     const transcriptedGrades = grades.map(grade => {
         if (grade <= 19) {

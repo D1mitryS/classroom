@@ -1,5 +1,6 @@
 const form = document.querySelector('#form');
 const gradeInput = document.querySelector('#input');
+const resetBtn = document.querySelector('#reset');
 const grades = [];
 
 
@@ -132,4 +133,12 @@ form.addEventListener('submit', (evt) => {
     gradeInput.value = "";
 
     renderTableRows(grades);
+const reset = () => {
+    grades.length = 0;
+    render(grades);
+}
+
+resetBtn.addEventListener('click', () => {
+    reset();
+})
 })

@@ -96,34 +96,41 @@ const render1TableContent = grades => {
         </tr>`;
 }
 
-const render2TableContent = grades => {
+const render2TableContent = (grades, lowLimit) => {
     const tbody = document.querySelector('#second-table tbody');
 
     tbody.innerHTML =
         `<tr>
-            <td>${getPassingGrades(grades)}</td>
-            <td>${getFailingGrades(grades)}</td>
-            <td>${getTranscriptedGrades(grades)}</td>
+            <td>${getPassingGrades(grades, lowLimit)}</td>
+            <td>${getFailingGrades(grades, lowLimit)}</td>
         </tr>`;
 }
 
-const render3TableContent = grades => {
+const render3TableContent = (grades, lowLimit) => {
     const tbody = document.querySelector('#third-table tbody');
     tbody.innerHTML =
+        `<tr>
+            <td>${getPassingGradesTotal(grades, lowLimit)}</td>
+            <td>${getFailingGradesTotal(grades, lowLimit)}</td>
+        </tr>`;
+}
+
+render4TableContent = grades => {
+    const tbody = document.querySelector('#fourth-table tbody');
+    tbody.innerHTML = 
     `<tr>
-        <td>${getPassingGradesTotal(grades)}</td>
-        <td>${getFailingGradesTotal(grades)}</td>
-    </tr>`
+        <td>${getTranscriptedGrades(grades)}</td>
+    </tr>`;
 }
 
-renderTableRows = grades => {
+render = (grades, lowLimit) => {
     render1TableContent(grades);
-    render2TableContent(grades);
-    render3TableContent(grades);
+    render2TableContent(grades, lowLimit);
+    render3TableContent(grades, lowLimit);
+    render4TableContent(grades);
 }
 
-renderTableRows(grades);
-
+render(grades, lowLimit);
 
 
 form.addEventListener('submit', (evt) => {

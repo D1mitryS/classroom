@@ -222,14 +222,16 @@ form.addEventListener('submit', (evt) => {
     lowLimit = Number(lowLimitInput.value);
 
     if (highLimit > lowLimit) {
-        const newGrade = Number.parseInt(gradeInput.value, 10);
+        const newGrade = Number(gradeInput.value);
 
-        if (newGrade <= highLimit) {
-            grades.push(newGrade);
-            gradeInput.value = "";
-            render(grades, lowLimit);
-            highLimitNotification = true;
-        } else {
+        switch (newGrade <= highLimit) {
+            case true:
+                grades.push(newGrade);
+                render(grades, lowLimit);
+                highLimitNotification = true;
+                gradeInput.value = "";
+                break;
+            default:
             tooltip.style.display = 'flex';
             tooltipText.innerHTML = 'New grade <b>can\'t exceed</b> highest passing grade';
             gradeInput.value = "";

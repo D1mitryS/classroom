@@ -63,9 +63,8 @@ main > .container {
 
 .input-block button {
     padding: 5px;
-    background-color: #970e3d;
     color: #fff;
-    width: 10%;
+    min-width: 20%;
     border-radius: 5px;
     font-size: .9em;
 }

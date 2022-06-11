@@ -32,6 +32,22 @@ main > .container {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
+.limits {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.limits label {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.limits input {
+    padding: 2.5px;
+    width: 60px;
+    font-size: .8em;
 }
 
 .input-block {

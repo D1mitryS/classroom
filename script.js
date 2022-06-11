@@ -3,8 +3,12 @@ const highLimitInput = document.querySelector('#high-num');
 const lowLimitInput = document.querySelector('#low-num');
 const gradeInput = document.querySelector('#input');
 const resetBtn = document.querySelector('#reset');
+const tooltip = document.querySelector('#tooltip');
+const tooltipText = document.querySelector('#tooltip-text');
+const tooltipClose = document.querySelector('#tooltip-close')
 const grades = [];
 let lowLimit = 0;
+let highLimitNotification = false;
 
 
 const getGradesTotal = grades => {
@@ -138,6 +142,8 @@ render(grades, lowLimit);
 form.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
+    tooltip.style.display = 'none';
+    tooltipText.textContent = "";
 
     const highLimit = Number.parseInt(highLimitInput.value, 10);
     lowLimit = Number.parseInt(lowLimitInput.value, 10);
@@ -149,10 +155,15 @@ form.addEventListener('submit', (evt) => {
             grades.push(newGrade);
             gradeInput.value = "";
             render(grades, lowLimit);
+            highLimitNotification = true;
         } else {
+            tooltip.style.display = 'flex';
+            tooltipText.innerHTML = 'New grade <b>can\'t exceed</b> highest passing grade';
             gradeInput.value = "";
         }
     } else {
+        tooltip.style.display = 'flex';
+        tooltipText.innerHTML = '<b>Highest</b> passing grade can\'t be lower or equal to <b>lowest</b> passing grade';
         gradeInput.value = "";
         highLimitInput.value = "";
         lowLimitInput.value = "";
@@ -168,4 +179,18 @@ const reset = () => {
 resetBtn.addEventListener('click', () => {
     reset();
 })
+
+
+highLimitInput.addEventListener('change', () => {
+    if (highLimitNotification) {
+        tooltip.style.display = 'flex';
+        tooltipText.innerHTML = 'Changing highest passing grade resets <b style="text-transform: uppercase">all</b> grades';
+        reset();
+    }
+})
+
+
+tooltipClose.addEventListener('click', () => {
+    tooltip.style.display = 'none';
+    tooltipText.textContent = "";
 })

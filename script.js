@@ -1,7 +1,10 @@
 const form = document.querySelector('#form');
+const highLimitInput = document.querySelector('#high-num');
+const lowLimitInput = document.querySelector('#low-num');
 const gradeInput = document.querySelector('#input');
 const resetBtn = document.querySelector('#reset');
 const grades = [];
+let lowLimit = 0;
 
 
 const getGradesTotal = grades => {
@@ -23,21 +26,20 @@ const getAverageGrade = grades => {
     return (grades.length !== 0) ? getSumOfGrades(grades) / getGradesTotal(grades) : 'No grades';
 }
 
-
-const getPassingGrades = grades => {
+const getPassingGrades = (grades, lowLimit) => {
     if (grades.length !== 0) {
         const filteredGrades = grades.filter(grade => {
-            return grade >= 3;
+            return grade >= lowLimit;
         });
         return (filteredGrades.length !== 0) ? filteredGrades : "No Passing grades";
     }
     return 'No grades';
 }
 
-const getFailingGrades = grades => {
+const getFailingGrades = (grades, lowLimit) => {
     if (grades.length !== 0) {
         const filteredGrades = grades.filter(grade => {
-            return grade < 3;
+            return grade < lowLimit;
         });
         return (filteredGrades.length !== 0) ? filteredGrades : "No failing grades";
     }
@@ -64,20 +66,20 @@ const getTranscriptedGrades = grades => {
     return "No grades";
 }
 
-const getPassingGradesTotal = grades => {
+const getPassingGradesTotal = (grades, lowLimit) => {
     if (grades.length !== 0) {
         const passingGrades = grades.filter(grade => {
-            return grade >= 3;
+            return grade >= lowLimit;
         });
         return passingGrades.length;
     }
     return "No grades";
 }
 
-const getFailingGradesTotal = grades => {
+const getFailingGradesTotal = (grades, lowLimit) => {
     if (grades.length !== 0) {
         const failingGrades = grades.filter(grade => {
-            return grade < 3;
+            return grade < lowLimit;
         })
         return failingGrades.length;
     }
@@ -135,11 +137,29 @@ render(grades, lowLimit);
 
 form.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    const newGrade = Number.parseInt(gradeInput.value, 10);
-    grades.push(newGrade);
-    gradeInput.value = "";
 
-    renderTableRows(grades);
+
+    const highLimit = Number.parseInt(highLimitInput.value, 10);
+    lowLimit = Number.parseInt(lowLimitInput.value, 10);
+
+    if (highLimit > lowLimit) {
+        const newGrade = Number.parseInt(gradeInput.value, 10);
+
+        if (newGrade <= highLimit) {
+            grades.push(newGrade);
+            gradeInput.value = "";
+            render(grades, lowLimit);
+        } else {
+            gradeInput.value = "";
+        }
+    } else {
+        gradeInput.value = "";
+        highLimitInput.value = "";
+        lowLimitInput.value = "";
+    }
+})
+
+
 const reset = () => {
     grades.length = 0;
     render(grades);

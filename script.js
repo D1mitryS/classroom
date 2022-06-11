@@ -238,7 +238,7 @@ form.addEventListener('submit', (evt) => {
         }
     } else {
         tooltip.style.display = 'flex';
-        tooltipText.innerHTML = '<b>Highest</b> passing grade can\'t be lower or equal to <b>lowest</b> passing grade';
+        tooltipText.innerHTML = 'Highest passing grade <b>can\'t be lower or equal</b> to lowest passing grade';
         gradeInput.value = "";
         highLimitInput.value = "";
         lowLimitInput.value = "";
@@ -267,9 +267,9 @@ resetBtn.addEventListener('click', () => {
 
 highLimitInput.addEventListener('change', () => {
     if (highLimitNotification) {
-        tooltip.style.display = 'flex';
-        tooltipText.innerHTML = 'Changing highest passing grade resets <b style="text-transform: uppercase">all</b> grades';
-        reset();
+            tooltip.style.display = 'flex';
+            tooltipText.innerHTML = 'Changing highest passing grade <b>resets all</b> grades';
+            reset();
     }
 })
 

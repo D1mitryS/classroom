@@ -45,7 +45,10 @@ main > .container {
 .limits label {
     display: flex;
     justify-content: space-between;
-    padding: 5px 0;
+}
+
+.limits label:not(:last-of-type) {
+    margin-bottom: 10px;
 }
 
 .limits input {

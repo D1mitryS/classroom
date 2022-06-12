@@ -102,19 +102,19 @@ main > .container {
     font-size: .5em;
 }
 
-.answer-tables {
+.tables {
     max-width: 900px;
 }
 
-.answer-tables table {
+.tables table {
     width: 100%;
 }
 
-.answer-tables table:not(:last-of-type) {
+.tables table:not(:last-of-type) {
     margin-bottom: 30px;
 }
 
-.answer-tables th {
+.tables th {
     background-color: #2b8379;
     color: #fff;
     padding: 10px;
@@ -123,7 +123,7 @@ main > .container {
     font-weight: normal;
 }
 
-.answer-tables td {
+.tables td {
     padding: 10px;
     border: 1px solid #000;
 }
